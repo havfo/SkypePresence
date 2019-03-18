@@ -38,7 +38,7 @@ export default class SkypeClient
 		logger.debug('_init()');
 
 		this._skype.initialize({
-			apiKey        : this._config.apiKey
+			apiKey : this._config.apiKey
 		}, (api) =>
 		{
 			this._api = api;
@@ -51,6 +51,8 @@ export default class SkypeClient
 			);
 		}, (error) =>
 		{
+			logger.error('_init() [error: "%s"]', error.message);
+
 			store.dispatch(requestActions.notify(
 				{
 					type : 'error',
@@ -82,7 +84,7 @@ export default class SkypeClient
 
 			store.dispatch(stateActions.setRegistering());
 			await this._skypeApplication.signInManager.signIn({
-				// cors    : true,
+				// cors : true,
 				version : this._config.version,
 				username,
 				password,
@@ -120,6 +122,8 @@ export default class SkypeClient
 
 					logger.debug(`Got ${this._persons.length} persons.`);
 
+					const subscriptions = store.getState().subscribed;
+
 					this._persons.forEach(async (person) =>
 					{
 						if (person.id())
@@ -128,32 +132,42 @@ export default class SkypeClient
 							{
 								id          : person.id(),
 								displayName : person.displayName(),
-								status      : "",
-								avatarUrl   : "",
-								lastSeen    : "",
-								mobilePhone : person.mobilePhone() ? person.mobilePhone() : "Unknown",
-								title       : person.title() ? person.title() : "Unknown",
-								department  : person.department() ? person.department() : "Unknown"
+								status      : '',
+								avatarUrl   : '',
+								lastSeen    : '',
+								mobilePhone : person.mobilePhone() ? person.mobilePhone() : 'Unknown',
+								title       : person.title() ? person.title() : 'Unknown',
+								department  : person.department() ? person.department() : 'Unknown'
 							};
 
-							statePerson.status = await person.status();
-							statePerson.avatarUrl = await person.avatarUrl();
-							statePerson.lastSeen = await person.lastSeenAt() ? await person.lastSeenAt().toDateString() : "Unknown";
+							statePerson.avatarUrl = await person.avatarUrl.get();
+							statePerson.lastSeen = await person.lastSeenAt.get();
+
+							store.dispatch(stateActions.addPerson({ person: statePerson }));
 
 							person.status.changed((status) =>
 							{
+								logger.debug('register() | status change [personId: "%s", status: "%s"]', statePerson.id, status);
+
 								store.dispatch(stateActions.setPersonStatus({ personId: statePerson.id, status }));
 							});
 
-							person.status.subscribe();
-
-							store.dispatch(stateActions.addPerson({ person: statePerson }));
+							if (subscriptions.includes(statePerson.id))
+							{
+								await person.status.subscribe();
+							}
 						}
 					});
+				})
+				.catch((error) =>
+				{
+					logger.error('register() [error: "%s"]', error.message);
 				});
 		}
 		catch (error)
 		{
+			logger.error('register() [error: "%s"]', error.message);
+
 			store.dispatch(stateActions.setRegistered({ registered: false }));
 
 			store.dispatch(requestActions.notify(
@@ -191,6 +205,8 @@ export default class SkypeClient
 		}
 		catch (error)
 		{
+			logger.error('unRegister() [error: "%s"]', error.message);
+
 			store.dispatch(requestActions.notify(
 				{
 					type : 'error',
@@ -198,5 +214,37 @@ export default class SkypeClient
 				})
 			);
 		}
+	}
+
+	async subscribe(personId)
+	{
+		logger.debug('subscribe() [personId: "%s"]', personId);
+
+		try
+		{
+			const subscribePerson = this._persons.find(person => person.id() === personId);
+
+			if (subscribePerson)
+			{
+				await subscribePerson.status.subscribe();
+
+				// const status = await subscribePerson.status.get();
+
+				// store.dispatch(stateActions.setPersonStatus({ personId: subscribePerson.id, status }));
+
+				store.dispatch(stateActions.subscribePerson({ personId }));
+			}
+		}
+		catch (error)
+		{
+			logger.error('subscribe() [error: "%s"]', error.message);
+		}
+	}
+
+	async unSubscribe(personId)
+	{
+		logger.debug('unSubscribe() [personId: "%s"]', personId);
+
+		store.dispatch(stateActions.unSubscribePerson({ personId }));
 	}
 }

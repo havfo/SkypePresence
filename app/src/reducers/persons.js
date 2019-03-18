@@ -24,6 +24,12 @@ const persons = (state = {}, action) =>
 			const { personId, status } = action.payload;
 
 			const person = state[personId];
+
+			if (!person) 
+			{
+				throw new Error('no person found');
+			}
+
 			const newPerson = { ...person, status };
 
 			return { ...state, [person.id]: newPerson };

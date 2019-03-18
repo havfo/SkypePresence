@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import * as stateActions from '../../actions/stateActions';
 import { withStyles } from '@material-ui/core/styles';
+import { withClientContext } from '../../clientContext';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -33,35 +34,33 @@ const styles = (theme) =>
 const Person = (props) =>
 {
 	const {
+		skypeClient,
 		person,
+		subscribed,
 		classes
 	} = props;
-
-	let avatar;
-
-	if (person.avatarUrl)
-	{
-		avatar = (<Avatar alt={person.displayName} src={person.avatarUrl} />);
-	}
-	else
-	{
-		avatar = (
-			<Avatar
-				alt={person.displayName}
-			>
-				{person.displayName.charAt(0)}
-			</Avatar>
-		);
-	}
 
 	return (
 		<ListItem
 			button
-			// onClick={() => setPerson(person.id)}
+			onClick={() =>
+			{
+				if (subscribed.includes(person.id))
+				{
+					skypeClient.unSubscribe(person.id);
+				}
+				else
+				{
+					skypeClient.subscribe(person.id);
+				}
+			}}
 			className={classes.nested}
 		>
 			<ListItemAvatar>
-				{avatar}
+				{person.avatarUrl ?
+					<Avatar alt={person.displayName} src={person.avatarUrl} />
+					:<Avatar alt={person.displayName}>{person.displayName.charAt(0)}</Avatar>
+				}
 			</ListItemAvatar>
 			<ListItemText
 				primary={person.displayName}
@@ -69,8 +68,18 @@ const Person = (props) =>
 			/>
 			<ListItemSecondaryAction>
 				<Checkbox
-					// onChange={this.handleToggle(value)}
-					// checked={this.state.checked.indexOf(value) !== -1}
+					onChange={() =>
+					{
+						if (subscribed.includes(person.id))
+						{
+							skypeClient.unSubscribe(person.id);
+						}
+						else
+						{
+							skypeClient.subscribe(person.id);
+						}
+					}}
+					checked={subscribed.includes(person.id)}
 				/>
 			</ListItemSecondaryAction>
 		</ListItem>
@@ -79,16 +88,21 @@ const Person = (props) =>
 
 Person.propTypes =
 {
-	person  : PropTypes.object,
-	classes : PropTypes.object.isRequired
+	skypeClient : PropTypes.object.isRequired,
+	person      : PropTypes.object,
+	subscribed  : PropTypes.array,
+	classes     : PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, { personId }) =>
 	({
-		person : state.persons[personId]
+		person     : state.persons[personId],
+		subscribed : state.subscribed
 	});
 
 const mapDispatchToProps = (dispatch) =>
 	({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Person));
+export default withClientContext(
+	connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Person))
+);

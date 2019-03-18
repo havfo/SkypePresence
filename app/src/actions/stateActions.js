@@ -88,6 +88,29 @@ export const setPersonStatus = ({ personId, status }) => (dispatch) =>
 	});
 };
 
+export const unSubscribePerson = ({ personId }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'UNSUBSCRIBE_PERSON',
+		payload : { personId }
+	});
+};
+
+export const unSubscribeAll = () => (dispatch) =>
+{
+	dispatch({
+		type : 'UNSUBSCRIBE_ALL'
+	});
+};
+
+export const subscribePerson = ({ personId }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'SUBSCRIBE_PERSON',
+		payload : { personId }
+	});
+};
+
 export const removeAllPersons = () => (dispatch) =>
 {
 	dispatch({

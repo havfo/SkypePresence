@@ -16,12 +16,12 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import Account from './Account/Account';
 import Notifications from './Notifications/Notifications';
 import ContactList from './ContactList/ContactList';
+import Dashboard from './Dashboard/Dashboard';
 
 const styles = (theme) =>
 	({
 		root :
 		{
-			display : 'flex',
 			width   : '100%',
 			height  : '100%'
 		},
@@ -198,6 +198,7 @@ class App extends Component
 					</MenuItem>
 				</Menu>
 
+				<Dashboard />
 			</div>
 		);
 	}
