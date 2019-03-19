@@ -27,11 +27,11 @@ const Account = (props) =>
 		skypeClient,
 		username,
 		password,
-		domain,
+		// domain,
 		autoRegister,
 		setUsername,
 		setPassword,
-		setDomain,
+		// setDomain,
 		setAutoRegister,
 		registered,
 		displayName,
@@ -63,6 +63,7 @@ const Account = (props) =>
 							onChange={(event) => setPassword(event.target.value)}
 						/>
 					</Grid>
+					{/*
 					<Grid item xs={12}>
 						<TextField
 							id='domain'
@@ -73,6 +74,7 @@ const Account = (props) =>
 							onChange={(event) => setDomain(event.target.value)}
 						/>
 					</Grid>
+					*/}
 					<Grid item xs={12}>
 						<FormControlLabel
 							control={

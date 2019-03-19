@@ -74,7 +74,7 @@ export default class SkypeClient
 		const {
 			username,
 			password,
-			domain
+			// domain
 		} = store.getState().user;
 
 		try
@@ -88,7 +88,7 @@ export default class SkypeClient
 				version : this._config.version,
 				username,
 				password,
-				domain
+				// domain
 			});
 
 			store.dispatch(stateActions.setRegistered({ registered: true }));
