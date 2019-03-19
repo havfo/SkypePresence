@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AvatarIcon from './avatar.png';
 
@@ -12,10 +13,10 @@ const styles = (theme) =>
 	({
 		paper :
 		{
-			padding         : theme.spacing.unit * 2,
-			width           : '30vw',
-			marginLeft      : theme.spacing.unit * 2,
-			marginBottom    : theme.spacing.unit * 2
+			padding   : theme.spacing.unit * 2,
+			textAlign : 'center',
+			marginRight : theme.spacing.unit * 2,
+			marginBottom : theme.spacing.unit * 2
 		},
 		lightRed :
 		{
@@ -41,8 +42,8 @@ const styles = (theme) =>
 		{
 			float       : 'left',
 			marginRight : theme.spacing.unit * 2,
-			width       : 100,
-			height      : 100
+			height      : 100,
+			width       : 100
 		}
 	});
 
@@ -68,24 +69,32 @@ const ContactCard = (props) =>
 		status = classes.grey;
 
 	return (
-		<Paper
-			className={classnames(status, classes.paper)}
-		>
-			<Avatar
-				alt={person.displayName}
-				className={classes.contactAvatar}
-				src={AvatarIcon}
-			/>
-			<Typography variant='h6' noWrap>
-				{ person.displayName }
-			</Typography>
-			<Typography variant='subtitle1' noWrap>
-				{ person.id }
-			</Typography>
-			<Typography variant='subtitle1' noWrap>
-				{ person.status }
-			</Typography>
-		</Paper>
+		<Grid item xs={12} md={6} lg={4} xl={3}>
+			<Paper
+				className={classnames(status, classes.paper)}
+			>
+				<Grid container spacing={0}>
+					<Grid item xs={2}>
+						<Avatar
+							alt={person.displayName}
+							className={classes.contactAvatar}
+							src={AvatarIcon}
+						/>
+					</Grid>
+					<Grid item xs={10}>
+						<Typography variant='h6' noWrap>
+							{ person.displayName }
+						</Typography>
+						<Typography variant='subtitle1' noWrap>
+							{ person.id }
+						</Typography>
+						<Typography variant='subtitle1' noWrap>
+							{ person.status }
+						</Typography>
+					</Grid>
+				</Grid>
+			</Paper>
+		</Grid>
 	);
 };
 

@@ -2,26 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import ContactCard from './ContactCard';
 
 const styles = (theme) =>
 	({
 		dashboard :
 		{
-			width          : '100%',
-			height         : '100%',
-			display        : 'flex',
-			flexDirection  : 'row',
-			flexWrap       : 'wrap',
-			justifyContent : 'center',
-			alignItems     : 'center',
-			alignContent   : 'center',
-			padding        : theme.spacing.unit * 2
-		},
-		card :
-		{
-			flex       : '0 0 auto',
-			margin     : theme.spacing.unit * 3
+			paddingTop  : theme.spacing.unit * 2,
+			paddingLeft : theme.spacing.unit * 2
 		}
 	});
 
@@ -33,14 +22,16 @@ const Dashboard = (props) =>
 	} = props;
 
 	return (
-		<div className={classes.dashboard}>
+		<Grid container spacing={0} className={classes.dashboard}>
 			{
 				subscribed.map((personId, index) =>
 				{
-					return (<ContactCard key={index} personId={personId} />);
+					return (
+						<ContactCard key={index} personId={personId} />
+					);
 				})
 			}
-		</div>
+		</Grid>
 	);
 };
 

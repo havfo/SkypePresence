@@ -22,8 +22,7 @@ const styles = (theme) =>
 	({
 		root :
 		{
-			width   : '100%',
-			height  : '100%'
+			flexGrow : 1
 		},
 		grow : {
 			flexGrow : 1
