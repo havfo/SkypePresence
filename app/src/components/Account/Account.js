@@ -17,7 +17,18 @@ const styles = (theme) =>
 		paper :
 		{
 			padding : theme.spacing.unit * 2,
-			width   : '20vw'
+			[theme.breakpoints.up('sm')] : {
+				width : '100vw'
+			},
+			[theme.breakpoints.up('md')] : {
+				width : '50vw'
+			},
+			[theme.breakpoints.up('lg')] : {
+				width : '30vw'
+			},
+			[theme.breakpoints.up('xl')] : {
+				width : '20vw'
+			}
 		}
 	});
 
@@ -49,7 +60,7 @@ const Account = (props) =>
 							label='SfB username'
 							type='email'
 							value={username || ''}
-							style={{ width: '100%' }}
+							fullWidth
 							onChange={(event) => setUsername(event.target.value)}
 						/>
 					</Grid>
@@ -59,7 +70,7 @@ const Account = (props) =>
 							label='SfB password'
 							type='password'
 							value={password || ''}
-							style={{ width: '100%' }}
+							fullWidth
 							onChange={(event) => setPassword(event.target.value)}
 						/>
 					</Grid>
@@ -97,7 +108,7 @@ const Account = (props) =>
 						</Button>
 					</Grid>
 				</Grid>
-				:<Grid container spacing={8}>
+				:<Grid container spacing={0}>
 					<Grid item xs={12}>
 						<Typography variant='body1' noWrap>
 							{ displayName }
