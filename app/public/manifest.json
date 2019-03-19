@@ -1,6 +1,6 @@
 {
-  "short_name": "Skype Client",
-  "name": "Skype for Business Web Client",
+  "short_name": "Skype Presence",
+  "name": "Skype for Business Presence Dashboard",
   "icons": [
     {
       "src": "favicon.ico",

@@ -121,7 +121,7 @@ class App extends Component
 							color='inherit'
 							noWrap
 						>
-							SkypePresence
+							Skype Presence Dashboard
 						</Typography>
 						<div className={classes.grow} />
 						<div className={classes.sectionDesktop}>

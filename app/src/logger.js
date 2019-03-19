@@ -1,6 +1,6 @@
 import debug from 'debug';
 
-const APP_NAME = 'skype-client';
+const APP_NAME = 'skype-presence';
 
 export default class Logger
 {
