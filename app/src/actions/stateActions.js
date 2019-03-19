@@ -88,6 +88,38 @@ export const setPersonStatus = ({ personId, status }) => (dispatch) =>
 	});
 };
 
+export const setPersonNote = ({ personId, note }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'SET_PERSON_NOTE',
+		payload : { personId, note }
+	});
+};
+
+export const setPersonLocation = ({ personId, location }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'SET_PERSON_LOCATION',
+		payload : { personId, location }
+	});
+};
+
+export const setPersonActivity = ({ personId, activity }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'SET_PERSON_ACTIVITY',
+		payload : { personId, activity }
+	});
+};
+
+export const setPersonLastSeenAt = ({ personId, lastSeenAt }) => (dispatch) =>
+{
+	dispatch({
+		type    : 'SET_PERSON_LAST_SEEN_AT',
+		payload : { personId, lastSeenAt }
+	});
+};
+
 export const unSubscribePerson = ({ personId }) => (dispatch) =>
 {
 	dispatch({

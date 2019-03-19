@@ -132,16 +132,15 @@ export default class SkypeClient
 							{
 								id          : person.id(),
 								displayName : person.displayName(),
-								status      : '',
-								avatarUrl   : '',
-								lastSeen    : '',
-								mobilePhone : person.mobilePhone() ? person.mobilePhone() : 'Unknown',
-								title       : person.title() ? person.title() : 'Unknown',
-								department  : person.department() ? person.department() : 'Unknown'
+								status      : await person.status.get(),
+								activity    : await person.activity.get(),
+								note        : person.note.text(),
+								location    : person.location(),
+								avatarUrl   : await person.avatarUrl.get(),
+								lastSeenAt  : await person.lastSeenAt.get(),
+								title       : person.title(),
+								department  : person.department()
 							};
-
-							statePerson.avatarUrl = await person.avatarUrl.get();
-							statePerson.lastSeen = await person.lastSeenAt.get();
 
 							store.dispatch(stateActions.addPerson({ person: statePerson }));
 
@@ -152,9 +151,40 @@ export default class SkypeClient
 								store.dispatch(stateActions.setPersonStatus({ personId: statePerson.id, status }));
 							});
 
+							person.note.text.changed((note) =>
+							{
+								logger.debug('register() | note change [personId: "%s", note: "%s"]', statePerson.id, note);
+
+								store.dispatch(stateActions.setPersonNote({ personId: statePerson.id, note }));
+							});
+
+							person.activity.changed((activity) =>
+							{
+								logger.debug('register() | activity change [personId: "%s", activity: "%s"]', statePerson.id, activity);
+
+								store.dispatch(stateActions.setPersonActivity({ personId: statePerson.id, activity }));
+							});
+
+							person.location.changed((location) =>
+							{
+								logger.debug('register() | location change [personId: "%s", location: "%s"]', statePerson.id, location);
+
+								store.dispatch(stateActions.setPersonLocation({ personId: statePerson.id, location }));
+							});
+
+							person.lastSeenAt.changed((lastSeenAt) =>
+							{
+								logger.debug('register() | lastSeenAt change [personId: "%s", lastSeenAt: "%s"]', statePerson.id, lastSeenAt);
+
+								store.dispatch(stateActions.setPersonLastSeenAt({ personId: statePerson.id, lastSeenAt }));
+							});
+
 							if (subscriptions.includes(statePerson.id))
 							{
 								await person.status.subscribe();
+								await person.note.text.subscribe();
+								await person.activity.subscribe();
+								await person.lastSeenAt.subscribe();
 							}
 						}
 					});

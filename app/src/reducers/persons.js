@@ -35,6 +35,70 @@ const persons = (state = {}, action) =>
 			return { ...state, [person.id]: newPerson };
 		}
 
+		case 'SET_PERSON_NOTE':
+		{
+			const { personId, note } = action.payload;
+
+			const person = state[personId];
+
+			if (!person) 
+			{
+				throw new Error('no person found');
+			}
+
+			const newPerson = { ...person, note };
+
+			return { ...state, [person.id]: newPerson };
+		}
+
+		case 'SET_PERSON_LOCATION':
+		{
+			const { personId, location } = action.payload;
+
+			const person = state[personId];
+
+			if (!person) 
+			{
+				throw new Error('no person found');
+			}
+
+			const newPerson = { ...person, location };
+
+			return { ...state, [person.id]: newPerson };
+		}
+
+		case 'SET_PERSON_ACTIVITY':
+		{
+			const { personId, activity } = action.payload;
+
+			const person = state[personId];
+
+			if (!person) 
+			{
+				throw new Error('no person found');
+			}
+
+			const newPerson = { ...person, activity };
+
+			return { ...state, [person.id]: newPerson };
+		}
+
+		case 'SET_PERSON_LAST_SEEN_AT':
+		{
+			const { personId, lastSeenAt } = action.payload;
+
+			const person = state[personId];
+
+			if (!person) 
+			{
+				throw new Error('no person found');
+			}
+
+			const newPerson = { ...person, lastSeenAt };
+
+			return { ...state, [person.id]: newPerson };
+		}
+
 		case 'REMOVE_ALL_PERSONS':
 		{
 			return {};
