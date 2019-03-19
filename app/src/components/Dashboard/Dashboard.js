@@ -22,7 +22,7 @@ const Dashboard = (props) =>
 	} = props;
 
 	return (
-		<Grid container spacing={0} className={classes.dashboard}>
+		<Grid container alignItems='center' justify='center' spacing={0} className={classes.dashboard}>
 			{
 				subscribed.map((personId, index) =>
 				{
