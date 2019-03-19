@@ -5,32 +5,40 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import AvatarIcon from './avatar.png';
 
 const styles = (theme) =>
 	({
-		paper :
+		paperGreen :
 		{
-			padding    : theme.spacing.unit * 2,
-			width      : '20vw',
-			marginLeft : theme.spacing.unit * 2
+			padding         : theme.spacing.unit * 2,
+			width           : '30vw',
+			marginLeft      : theme.spacing.unit * 2,
+			marginBottom    : theme.spacing.unit * 2,
+			backgroundColor : 'rgba(0, 255, 0, 0.5)'
 		},
-		avatarGreen :
+		paperRed :
 		{
-			border      : '2px solid rgba(0, 255, 0, 0.5)',
-			float       : 'left',
-			marginRight : theme.spacing.unit * 2
+			padding         : theme.spacing.unit * 2,
+			width           : '30vw',
+			marginLeft      : theme.spacing.unit * 2,
+			marginBottom    : theme.spacing.unit * 2,
+			backgroundColor : 'rgba(255, 0, 0, 0.4)'
 		},
-		avatarRed :
+		paperYellow :
 		{
-			border      : '2px solid rgba(255, 0, 0, 0.5)',
-			float       : 'left',
-			marginRight : theme.spacing.unit * 2
+			padding         : theme.spacing.unit * 2,
+			width           : '30vw',
+			marginLeft      : theme.spacing.unit * 2,
+			marginBottom    : theme.spacing.unit * 2,
+			backgroundColor : 'rgba(255, 255, 0, 0.5)'
 		},
-		avatarYellow :
+		contactAvatar :
 		{
-			border      : '2px solid rgba(255, 255, 0, 0.5)',
 			float       : 'left',
-			marginRight : theme.spacing.unit * 2
+			marginRight : theme.spacing.unit * 2,
+			width       : 100,
+			height      : 100
 		}
 	});
 
@@ -44,26 +52,30 @@ const ContactCard = (props) =>
 	if (!person)
 		return null;
 
-	let status = classes.avatarYellow;
+	let status = classes.paperYellow;
 
 	if (person.status === 'Online')
-		status = classes.avatarGreen;
+		status = classes.paperGreen;
 	else if (person.status === 'Busy')
-		status = classes.avatarRed;
+		status = classes.paperRed;
 
 	return (
 		<Paper
-			className={classes.paper}
+			className={status}
 		>
-			{ person.avatarUrl ?
-				<Avatar alt={person.displayName} src={person.avatarUrl} className={status} />
-				:<Avatar alt={person.displayName} className={status}>{person.displayName.charAt(0)}</Avatar>
-			}
-			<Typography variant='body1' noWrap>
+			<Avatar
+				alt={person.displayName}
+				className={classes.contactAvatar}
+				src={AvatarIcon}
+			/>
+			<Typography variant='h6' noWrap>
 				{ person.displayName }
 			</Typography>
-			<Typography noWrap>
+			<Typography variant='subtitle1' noWrap>
 				{ person.id }
+			</Typography>
+			<Typography variant='subtitle1' noWrap>
+				{ person.status }
 			</Typography>
 		</Paper>
 	);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import * as stateActions from '../../actions/stateActions';
 import { withStyles } from '@material-ui/core/styles';
 import { withClientContext } from '../../clientContext';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,15 +18,21 @@ const styles = (theme) =>
 		},
 		avatarGreen :
 		{
-			border : '2px solid rgba(0, 255, 0, 0.5)'
+			border : '2px solid rgba(0, 255, 0, 0.5)',
+			width: 100,
+			height: 100
 		},
 		avatarRed :
 		{
-			border : '2px solid rgba(255, 0, 0, 0.5)'
+			border : '2px solid rgba(255, 0, 0, 0.5)',
+			width: 100,
+			height: 100
 		},
 		avatarYellow :
 		{
-			border : '2px solid rgba(255, 255, 0, 0.5)'
+			border : '2px solid rgba(255, 255, 0, 0.5)',
+			width: 100,
+			height: 100
 		}
 	});
 
@@ -57,10 +62,7 @@ const Person = (props) =>
 			className={classes.nested}
 		>
 			<ListItemAvatar>
-				{person.avatarUrl ?
-					<Avatar alt={person.displayName} src={person.avatarUrl} />
-					:<Avatar alt={person.displayName}>{person.displayName.charAt(0)}</Avatar>
-				}
+				<Avatar alt={person.displayName}>{person.displayName.charAt(0)}</Avatar>
 			</ListItemAvatar>
 			<ListItemText
 				primary={person.displayName}
