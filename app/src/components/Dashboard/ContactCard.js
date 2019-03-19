@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -9,29 +10,32 @@ import AvatarIcon from './avatar.png';
 
 const styles = (theme) =>
 	({
-		paperGreen :
+		paper :
 		{
 			padding         : theme.spacing.unit * 2,
 			width           : '30vw',
 			marginLeft      : theme.spacing.unit * 2,
-			marginBottom    : theme.spacing.unit * 2,
-			backgroundColor : 'rgba(0, 255, 0, 0.5)'
+			marginBottom    : theme.spacing.unit * 2
 		},
-		paperRed :
+		lightRed :
 		{
-			padding         : theme.spacing.unit * 2,
-			width           : '30vw',
-			marginLeft      : theme.spacing.unit * 2,
-			marginBottom    : theme.spacing.unit * 2,
 			backgroundColor : 'rgba(255, 0, 0, 0.4)'
 		},
-		paperYellow :
+		red :
 		{
-			padding         : theme.spacing.unit * 2,
-			width           : '30vw',
-			marginLeft      : theme.spacing.unit * 2,
-			marginBottom    : theme.spacing.unit * 2,
+			backgroundColor : 'rgba(255, 0, 0, 0.6)'
+		},
+		yellow :
+		{
 			backgroundColor : 'rgba(255, 255, 0, 0.5)'
+		},
+		green :
+		{
+			backgroundColor : 'rgba(0, 255, 0, 0.5)'
+		},
+		grey :
+		{
+			opacity : 0.5
 		},
 		contactAvatar :
 		{
@@ -52,16 +56,20 @@ const ContactCard = (props) =>
 	if (!person)
 		return null;
 
-	let status = classes.paperYellow;
+	let status = classes.yellow;
 
 	if (person.status === 'Online')
-		status = classes.paperGreen;
+		status = classes.green;
 	else if (person.status === 'Busy')
-		status = classes.paperRed;
+		status = classes.lightRed;
+	else if (person.status === 'DoNotDisturb')
+		status = classes.red;
+	else if (person.status === 'Offline')
+		status = classes.grey;
 
 	return (
 		<Paper
-			className={status}
+			className={classnames(status, classes.paper)}
 		>
 			<Avatar
 				alt={person.displayName}

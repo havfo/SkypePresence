@@ -5,6 +5,7 @@
 	"dependencies": {
 		"@material-ui/core": "^3.9.2",
 		"@material-ui/icons": "^3.0.2",
+		"classnames": "^2.2.6",
 		"domready": "^1.0.8",
 		"notistack": "^0.5.0",
 		"react": "^16.8.4",
