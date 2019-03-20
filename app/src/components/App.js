@@ -210,10 +210,7 @@ App.propTypes =
 
 const mapStateToProps = (state) =>
 	({
-		registered   : state.userStatus.registered
+		registered : state.userStatus.registered
 	});
 
-const mapDispatchToProps = (dispatch) =>
-	({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
+export default connect(mapStateToProps, null)(withStyles(styles)(App));

@@ -9,14 +9,12 @@ module.exports =
 	plugins:
 	[
 		'import',
-		'react',
-		'jsx-control-statements'
+		'react'
 	],
 	extends:
 	[
 		'eslint:recommended',
-		'plugin:react/recommended',
-		'plugin:jsx-control-statements/recommended'
+		'plugin:react/recommended'
 	],
 	settings:
 	{

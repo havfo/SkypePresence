@@ -13,9 +13,9 @@ const styles = (theme) =>
 	({
 		paper :
 		{
-			padding   : theme.spacing.unit * 2,
-			textAlign : 'center',
-			marginRight : theme.spacing.unit * 2,
+			padding      : theme.spacing.unit * 2,
+			textAlign    : 'center',
+			marginRight  : theme.spacing.unit * 2,
 			marginBottom : theme.spacing.unit * 2
 		},
 		lightRed :
@@ -100,8 +100,8 @@ const ContactCard = (props) =>
 
 ContactCard.propTypes =
 {
-	person      : PropTypes.object,
-	classes     : PropTypes.object.isRequired
+	person  : PropTypes.object,
+	classes : PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, { personId }) =>
@@ -109,7 +109,4 @@ const mapStateToProps = (state, { personId }) =>
 		person : state.persons[personId]
 	});
 
-const mapDispatchToProps = (dispatch) =>
-	({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ContactCard));
+export default connect(mapStateToProps, null)(withStyles(styles)(ContactCard));

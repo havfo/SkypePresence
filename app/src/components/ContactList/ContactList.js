@@ -11,7 +11,7 @@ const styles = (theme) =>
 		toolbar : theme.mixins.toolbar,
 		nested  :
 		{
-			paddingLeft : theme.spacing.unit * 4,
+			paddingLeft : theme.spacing.unit * 4
 		},
 		paper :
 		{
@@ -61,7 +61,4 @@ const mapStateToProps = (state) =>
 		persons : state.persons
 	});
 
-const mapDispatchToProps = (dispatch) =>
-	({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ContactList));
+export default connect(mapStateToProps, null)(withStyles(styles)(ContactList));

@@ -46,7 +46,4 @@ const mapStateToProps = (state) =>
 		subscribed : state.subscribed
 	});
 
-const mapDispatchToProps = (dispatch) =>
-	({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Dashboard));
+export default connect(mapStateToProps, null)(withStyles(styles)(Dashboard));

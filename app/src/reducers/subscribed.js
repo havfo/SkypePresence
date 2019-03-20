@@ -13,7 +13,7 @@ const subscribed = (state = [], action) =>
 		{
 			const { personId } = action.payload;
 
-			return state.filter(element => element !== personId);;
+			return state.filter((element) => element !== personId);
 		}
 
 		case 'UNSUBSCRIBE_ALL':

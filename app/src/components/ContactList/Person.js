@@ -14,25 +14,7 @@ const styles = (theme) =>
 	({
 		nested :
 		{
-			paddingLeft : theme.spacing.unit * 4,
-		},
-		avatarGreen :
-		{
-			border : '2px solid rgba(0, 255, 0, 0.5)',
-			width: 100,
-			height: 100
-		},
-		avatarRed :
-		{
-			border : '2px solid rgba(255, 0, 0, 0.5)',
-			width: 100,
-			height: 100
-		},
-		avatarYellow :
-		{
-			border : '2px solid rgba(255, 255, 0, 0.5)',
-			width: 100,
-			height: 100
+			paddingLeft : theme.spacing.unit * 4
 		}
 	});
 
@@ -102,9 +84,6 @@ const mapStateToProps = (state, { personId }) =>
 		subscribed : state.subscribed
 	});
 
-const mapDispatchToProps = (dispatch) =>
-	({});
-
 export default withClientContext(
-	connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Person))
+	connect(mapStateToProps, null)(withStyles(styles)(Person))
 );

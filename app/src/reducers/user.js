@@ -4,7 +4,7 @@ const initialState =
 	password     : null,
 	domain       : null,
 	autoRegister : false,
-	requestUri   : null,
+	requestUri   : null
 };
 
 const user = (state = initialState, action) =>

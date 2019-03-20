@@ -16,7 +16,7 @@ const styles = (theme) =>
 	({
 		paper :
 		{
-			padding : theme.spacing.unit * 2,
+			padding                      : theme.spacing.unit * 2,
 			[theme.breakpoints.up('sm')] : {
 				width : '100vw'
 			},
@@ -139,7 +139,9 @@ Account.propTypes =
 {
 	skypeClient     : PropTypes.any.isRequired,
 	username        : PropTypes.string,
+	setUsername     : PropTypes.func,
 	password        : PropTypes.string,
+	setPassword     : PropTypes.func,
 	domain          : PropTypes.string,
 	autoRegister    : PropTypes.bool,
 	setDomain       : PropTypes.func.isRequired,

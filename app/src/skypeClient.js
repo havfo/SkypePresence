@@ -73,13 +73,14 @@ export default class SkypeClient
 
 		const {
 			username,
-			password,
+			password
 			// domain
 		} = store.getState().user;
 
 		try
 		{
 			const application = this._api.application;
+
 			this._skypeApplication = new application();
 
 			store.dispatch(stateActions.setRegistering());
@@ -87,7 +88,7 @@ export default class SkypeClient
 				// cors : true,
 				version : this._config.version,
 				username,
-				password,
+				password
 				// domain
 			});
 
@@ -118,7 +119,8 @@ export default class SkypeClient
 			Promise.resolve()
 				.then(async () =>
 				{
-					this._persons = await this._skypeApplication.personsAndGroupsManager.all.persons.get();
+					this._persons =
+						await this._skypeApplication.personsAndGroupsManager.all.persons.get();
 
 					logger.debug(`Got ${this._persons.length} persons.`);
 
@@ -144,39 +146,64 @@ export default class SkypeClient
 
 							store.dispatch(stateActions.addPerson({ person: statePerson }));
 
-							person.status.changed((status) =>
+							person.status.changed((newStatus) =>
 							{
-								logger.debug('register() | status change [personId: "%s", status: "%s"]', statePerson.id, status);
+								logger.debug('register() | status change [personId: "%s", status: "%s"]', statePerson.id, newStatus);
 
-								store.dispatch(stateActions.setPersonStatus({ personId: statePerson.id, status }));
+								store.dispatch(
+									stateActions.setPersonStatus({
+										personId : statePerson.id,
+										status   : newStatus
+									})
+								);
 							});
 
 							person.note.text.changed((note) =>
 							{
 								logger.debug('register() | note change [personId: "%s", note: "%s"]', statePerson.id, note);
 
-								store.dispatch(stateActions.setPersonNote({ personId: statePerson.id, note }));
+								store.dispatch(
+									stateActions.setPersonNote({
+										personId : statePerson.id,
+										note
+									})
+								);
 							});
 
 							person.activity.changed((activity) =>
 							{
 								logger.debug('register() | activity change [personId: "%s", activity: "%s"]', statePerson.id, activity);
 
-								store.dispatch(stateActions.setPersonActivity({ personId: statePerson.id, activity }));
+								store.dispatch(
+									stateActions.setPersonActivity({
+										personId : statePerson.id,
+										activity
+									})
+								);
 							});
 
 							person.location.changed((location) =>
 							{
 								logger.debug('register() | location change [personId: "%s", location: "%s"]', statePerson.id, location);
 
-								store.dispatch(stateActions.setPersonLocation({ personId: statePerson.id, location }));
+								store.dispatch(
+									stateActions.setPersonLocation({
+										personId : statePerson.id,
+										location
+									})
+								);
 							});
 
 							person.lastSeenAt.changed((lastSeenAt) =>
 							{
 								logger.debug('register() | lastSeenAt change [personId: "%s", lastSeenAt: "%s"]', statePerson.id, lastSeenAt);
 
-								store.dispatch(stateActions.setPersonLastSeenAt({ personId: statePerson.id, lastSeenAt }));
+								store.dispatch(
+									stateActions.setPersonLastSeenAt({
+										personId : statePerson.id,
+										lastSeenAt
+									})
+								);
 							});
 
 							if (subscriptions.includes(statePerson.id))
@@ -252,7 +279,7 @@ export default class SkypeClient
 
 		try
 		{
-			const subscribePerson = this._persons.find(person => person.id() === personId);
+			const subscribePerson = this._persons.find((person) => person.id() === personId);
 
 			if (subscribePerson)
 			{

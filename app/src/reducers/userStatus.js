@@ -42,8 +42,8 @@ const userStatus = (state = initialState, action) =>
 		{
 			return {
 				...state,
-				registering: true
-			}
+				registering : true
+			};
 		}
 
 		case 'SET_REGISTERED':
@@ -52,7 +52,7 @@ const userStatus = (state = initialState, action) =>
 
 			return {
 				...state,
-				registering: false,
+				registering : false,
 				registered
 			};
 		}

@@ -21,7 +21,9 @@ export const notify = ({ type = 'info', text, timeout }) =>
 
 	const notification =
 	{
-		id      : Math.random().toString(36).substring(7).toLowerCase(),
+		id : Math.random().toString(36)
+			.substring(7)
+			.toLowerCase(),
 		type    : type,
 		text    : text,
 		timeout : timeout
