@@ -49,6 +49,11 @@ export default class SkypeClient
 					text : 'SDK successfully loaded.'
 				})
 			);
+
+			const { autoRegister } = store.getState().user;
+
+			if (autoRegister)
+				this.register();
 		}, (error) =>
 		{
 			logger.error('_init() [error: "%s"]', error.message);
@@ -60,11 +65,6 @@ export default class SkypeClient
 				})
 			);
 		});
-
-		const { autoRegister } = store.getState().user;
-
-		if (autoRegister)
-			this.register();
 	}
 
 	async register()
